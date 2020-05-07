@@ -1,1 +1,1 @@
-# OpenCV
+# OpenCV based projects
