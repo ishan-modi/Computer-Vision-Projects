@@ -18,7 +18,7 @@ def segment(frame,threshold=25):
     diff = cv2.absdiff(background.astype("uint8"), frame)
     _ , thresholded=cv2.threshold(diff, threshold, 255, cv2.THRESH_BINARY)
 
-    contours,hierarchy=cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours,hierarchy=cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
 
     if(len(contours)==0):
         return None
@@ -47,7 +47,7 @@ def count_fingers(thresholded, hand_segment):
     cv2.circle(circular_roi, (cX, cY), radius, 255, 10)
     circular_roi=cv2.bitwise_and(thresholded, thresholded, mask=circular_roi)
 
-    contours,hierarchy=cv2.findContours(circular_roi.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    contours,hierarchy=cv2.findContours(circular_roi.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)[-2:]
 
     count=0
     for cnt in contours:
@@ -70,7 +70,7 @@ roi_bottom=300
 roi_right=300
 roi_left=600
 
-cam = cv2.VideoCapture(-1)
+cam = cv2.VideoCapture(0)
 
 num_frames = 0
 
